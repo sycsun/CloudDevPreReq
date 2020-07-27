@@ -1,0 +1,1 @@
+docker exec node-basics-pg //usr/local/bin/psql -U postgres -c "CREATE TABLE IF NOT EXISTS users(id SERIAL PRIMARY KEY, name VARCHAR, gateway_id INTEGER); INSERT INTO users (name, gateway_id) VALUES('John Doe', 123), ('Jane Doe', 456);"

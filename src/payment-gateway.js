@@ -1,4 +1,6 @@
-class DummyServer {
+'use strict';
+
+class Paymentgateway {
 
   constructor(users) {
     this.users = users;
@@ -29,4 +31,4 @@ class DummyServer {
   };
 };
 
-module.exports = DummyServer;
+module.exports = Paymentgateway;

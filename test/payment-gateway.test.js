@@ -1,11 +1,11 @@
 const assert = require('assert');
-const DummyServer = require('../src/dummy-server');
+const PaymentGateway = require('../src/payment-gateway');
 
-describe('Dummy Server', () => {
-  let server;
+describe('Payment Gateway', () => {
+  let paymentGateway;
 
   before(() => {
-    server = new DummyServer([
+    paymentGateway = new PaymentGateway([
       {
         id: 1,
         name: 'John Doe',
@@ -22,7 +22,7 @@ describe('Dummy Server', () => {
   it('can charge an amount', (done) => {
     const userId = 1;
     const amount = 100;
-    server.charge(userId, amount, (err, value) => {
+    paymentGateway.charge(userId, amount, (err, value) => {
       assert.equal(err, null);
       assert.deepEqual({
         newBalance: 2900
@@ -34,7 +34,7 @@ describe('Dummy Server', () => {
   it('Error in case user was not found', (done) => {
     const userId = -1;
     const amount = 100;
-    server.charge(userId, amount, (err, value) => {
+    paymentGateway.charge(userId, amount, (err, value) => {
       assert.ok(err);
       assert.ok(!value);
       assert.equal('User not found!', err.message);
@@ -45,7 +45,7 @@ describe('Dummy Server', () => {
   it('Error if amount exceeds users balance ', (done) => {
     const userId = 2;
     const amount = 300;
-    server.charge(userId, amount, (err, value) => {
+    paymentGateway.charge(userId, amount, (err, value) => {
       assert.ok(err);
       assert.ok(!value);
       assert.equal('Amount exceeds users balance.', err.message);
