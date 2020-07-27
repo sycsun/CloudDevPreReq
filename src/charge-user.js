@@ -19,9 +19,10 @@ const chargeUser = (userId, amount, paymentGateway, pool, callback) => {
         if (err) {
           return callback(err);
         }
-        else {
+
+        client.end(() => {
           return callback(null, response);
-        }
+        })
       });
     });
   });
