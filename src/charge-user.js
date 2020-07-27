@@ -17,12 +17,11 @@ const chargeUser = (userId, amount, paymentGateway, pool, callback) => {
       const dbEntry = result.rows[0];
       paymentGateway.charge(dbEntry.gateway_id, amount, (err, response) => {
         if (err) {
-          return callback(err);
+          return callback(new Error('Payment gateway error'));
         }
-
         client.end(() => {
           return callback(null, response);
-        })
+        });
       });
     });
   });

@@ -38,4 +38,15 @@ describe('Charge user', () => {
       done();
     });
   });
+
+  it('payment gateway errors are propagated', (done) => {
+    const userId = 1;
+    const amount = 3100;
+    chargeUser(userId, amount, paymentGateway, pool, (err, value) => {
+      assert.ok(err);
+      assert.ok(!value);
+      assert.equal('Payment gateway error', err.message);
+      done();
+    });
+  });
 });
