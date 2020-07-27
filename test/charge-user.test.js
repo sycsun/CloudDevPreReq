@@ -1,7 +1,7 @@
 const assert = require('assert');
 const PaymentGateway = require('../src/payment-gateway');
 const Pool = require('pg').Pool;
-const chargeUser = require('../src/charge-user');
+const { chargeUser, PaymentGatewayError, UserNotFoundError } = require('../src/charge-user');
 
 describe('Charge user', () => {
   let paymentGateway;
@@ -32,9 +32,8 @@ describe('Charge user', () => {
     const userId = 999;
     const amount = 100;
     chargeUser(userId, amount, paymentGateway, pool, (err, value) => {
-      assert.ok(err);
+      assert.equal(true, err instanceof UserNotFoundError);
       assert.ok(!value);
-      assert.equal('No user found in database', err.message);
       done();
     });
   });
@@ -43,9 +42,8 @@ describe('Charge user', () => {
     const userId = 1;
     const amount = 3100;
     chargeUser(userId, amount, paymentGateway, pool, (err, value) => {
-      assert.ok(err);
+      assert.equal(true, err instanceof PaymentGatewayError);
       assert.ok(!value);
-      assert.equal('Payment gateway error', err.message);
       done();
     });
   });
