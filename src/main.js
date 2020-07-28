@@ -1,5 +1,7 @@
 'use strict';
 
+// REVISE: Do we need this file at all?
+
 const Pool = require('pg').Pool;
 const URI = 'postgres://postgres@localhost:5432/postgres';
 const Paymentgateway = require('./payment-gateway');
