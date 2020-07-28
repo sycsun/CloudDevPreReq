@@ -15,10 +15,10 @@ try {
     }
   ]);
   const chargeUserCommand = new ChargeUserCommand(paymentGateway, pool);
-  chargeUserCommand.execute(1, 500, (err, response) => {
+  chargeUserCommand.execute(1, 3500, (err, response) => {
     if (err) {
       pool.end();
-      throw err;
+      console.error(err);
     } else {
       console.log('Successfully charged user');
       pool.end();

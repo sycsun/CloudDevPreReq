@@ -5,7 +5,8 @@
   "scripts": {
     "watch": "nodemon src/main.js",
     "start": "node src/main.js",
-    "test": "node node_modules/mocha/bin/mocha --exit"
+    "test": "node node_modules/mocha/bin/mocha --exit",
+    "read-file": "node src/file-reader.js"
   },
   "repository": {
     "type": "git",
