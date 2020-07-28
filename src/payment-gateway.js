@@ -27,7 +27,7 @@ class Paymentgateway {
     return callback(null, {
       newBalance: user.balance
     });
-    }, 300);
+    }, 50);
   };
 };
 

@@ -1,9 +1,10 @@
 const assert = require('assert');
 const PaymentGateway = require('../src/payment-gateway');
 const Pool = require('pg').Pool;
-const { chargeUser, PaymentGatewayError, UserNotFoundError } = require('../src/charge-user');
+const { ChargeUserCommand, PaymentGatewayError, UserNotFoundError } = require('../src/charge-user-command');
 
 describe('Charge user', () => {
+  let chargeUserCommand;
   let paymentGateway;
   let pool;
 
@@ -14,12 +15,13 @@ describe('Charge user', () => {
       name: 'John Doe',
       balance: 3000
     }]);
+    chargeUserCommand = new ChargeUserCommand(paymentGateway, pool);
   });
 
   it('can charge an amount', (done) => {
     const userId = 1;
     const amount = 100;
-    chargeUser(userId, amount, paymentGateway, pool, (err, value) => {
+    chargeUserCommand.execute(userId, amount, (err, value) => {
       assert.equal(err, null);
       assert.deepEqual({
         newBalance: 2900
@@ -31,7 +33,7 @@ describe('Charge user', () => {
   it('error if user was not found in database', (done) => {
     const userId = 999;
     const amount = 100;
-    chargeUser(userId, amount, paymentGateway, pool, (err, value) => {
+    chargeUserCommand.execute(userId, amount, (err, value) => {
       assert.equal(true, err instanceof UserNotFoundError);
       assert.ok(!value);
       done();
@@ -41,7 +43,7 @@ describe('Charge user', () => {
   it('payment gateway errors are propagated', (done) => {
     const userId = 1;
     const amount = 3100;
-    chargeUser(userId, amount, paymentGateway, pool, (err, value) => {
+    chargeUserCommand.execute(userId, amount, (err, value) => {
       assert.equal(true, err instanceof PaymentGatewayError);
       assert.ok(!value);
       done();
