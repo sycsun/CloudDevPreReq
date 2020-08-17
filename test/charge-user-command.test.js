@@ -18,6 +18,8 @@ describe('Charge user', () => {
     chargeUserCommand = new ChargeUserCommand(paymentGateway, pool);
   });
 
+  after(() => pool.end());
+
   it('can charge an amount', (done) => {
     const userId = 1;
     const amount = 100;

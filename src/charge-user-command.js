@@ -11,28 +11,20 @@ class ChargeUserCommand {
   }
 
   execute(userId, amount, callback) {
-    this.pool.connect((err, client) => {
+    this.pool.query('SELECT * FROM users WHERE id = $1', [userId], (err, result) => {
       if (err) {
         return callback(err);
       }
-  
-      client.query('SELECT * FROM users WHERE id = $1', [userId], (err, result) => {
+
+      if (!result.rows[0]) {
+        return callback(new UserNotFoundError());
+      }
+      const dbEntry = result.rows[0];
+      this.paymentGateway.charge(dbEntry.gateway_id, amount, (err, response) => {
         if (err) {
-          return callback(err);
+          return callback(new PaymentGatewayError());
         }
-  
-        if (!result.rows[0]) {
-          return callback(new UserNotFoundError());
-        }
-        const dbEntry = result.rows[0];
-        this.paymentGateway.charge(dbEntry.gateway_id, amount, (err, response) => {
-          if (err) {
-            return callback(new PaymentGatewayError());
-          }
-          client.end(() => {
-            return callback(null, response);
-          });
-        });
+        return callback(null, response);
       });
     });
   }
