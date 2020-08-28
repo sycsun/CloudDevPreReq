@@ -5,18 +5,15 @@ describe('Payment Gateway', () => {
   let paymentGateway;
 
   before(() => {
-    paymentGateway = new PaymentGateway([
-      {
-        id: 1,
-        name: 'John Doe',
-        balance: 3000
-      },
-      {
-        id: 2,
-        name: 'Jane Doe',
-        balance: 250
-      }
-    ]);
+    paymentGateway = new PaymentGateway([{
+      id: 1,
+      name: 'John Doe',
+      balance: 3000
+    }, {
+      id: 2,
+      name: 'Jane Doe',
+      balance: 250
+    }]);
   });
 
   it('can charge an amount', (done) => {
@@ -24,9 +21,7 @@ describe('Payment Gateway', () => {
     const amount = 100;
     paymentGateway.charge(userId, amount, (err, value) => {
       assert.equal(err, null);
-      assert.deepEqual({
-        newBalance: 2900
-      }, value);
+      assert.deepEqual({ newBalance: 2900 }, value);
       done();
     });
   });

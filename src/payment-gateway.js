@@ -8,27 +8,23 @@ class Paymentgateway {
 
   charge(userId, amount, callback) {
     setTimeout(() => {
-    const userIndex = this.users.findIndex((user) => {
-      return user.id === userId
-    });
+      const userIndex = this.users.findIndex((user) => user.id === userId);
+      const user = this.users[userIndex];
+      let error = null;
+      let response = null;
 
-    const user = this.users[userIndex];
+      if (!user) {
+        error = new Error('User not found!');
+      } else if (user.balance < amount) {
+        error = new Error('Amount exceeds users balance.');
+      } else {
+        user.balance -= amount;
+        response = { newBalance: user.balance }
+      }
 
-    if (!user) {
-      return callback(new Error('User not found!'));
-    }
-
-    if (user.balance < amount) {
-      return callback(new Error('Amount exceeds users balance.'));
-    }
-    
-    user.balance -= amount;
-
-    return callback(null, {
-      newBalance: user.balance
-    });
+      return callback(error, response);
     }, 50);
-  };
-};
+  }
+}
 
 module.exports = Paymentgateway;
