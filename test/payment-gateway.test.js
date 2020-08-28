@@ -26,24 +26,24 @@ describe('Payment Gateway', () => {
     });
   });
 
-  it('Error in case user was not found', (done) => {
+  it('fails if user was not found', (done) => {
     const userId = -1;
     const amount = 100;
     paymentGateway.charge(userId, amount, (err, value) => {
       assert.ok(err);
       assert.ok(!value);
-      assert.equal('User not found!', err.message);
+      assert.equal('User not found', err.message);
       done();
     });
   });
 
-  it('Error if amount exceeds users balance ', (done) => {
+  it('fails if users does not have sufficient money ', (done) => {
     const userId = 2;
     const amount = 300;
     paymentGateway.charge(userId, amount, (err, value) => {
       assert.ok(err);
       assert.ok(!value);
-      assert.equal('Amount exceeds users balance.', err.message);
+      assert.equal('Overdraft', err.message);
       done();
     });
   });

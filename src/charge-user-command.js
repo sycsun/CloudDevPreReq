@@ -1,7 +1,6 @@
 'use strict';
 
 class UserNotFoundError extends Error {}
-class PaymentGatewayError extends Error {}
 
 class ChargeUserCommand {
 
@@ -22,7 +21,7 @@ class ChargeUserCommand {
       const dbEntry = result.rows[0];
       this.paymentGateway.charge(dbEntry.gateway_id, amount, (err, response) => {
         if (err) {
-          return callback(new PaymentGatewayError());
+          return callback(err);
         }
         return callback(null, response);
       });
@@ -30,8 +29,6 @@ class ChargeUserCommand {
   }
 }
 
-module.exports = {
-  ChargeUserCommand,
-  UserNotFoundError,
-  PaymentGatewayError
-};
+ChargeUserCommand.UserNotFoundError = UserNotFoundError;
+
+module.exports = ChargeUserCommand;

@@ -1,6 +1,8 @@
 'use strict';
 
-class Paymentgateway {
+class PaymentGatewayError extends Error {}
+
+class PaymentGateway {
 
   constructor(users) {
     this.users = users;
@@ -14,9 +16,9 @@ class Paymentgateway {
       let response = null;
 
       if (!user) {
-        error = new Error('User not found!');
+        error = new PaymentGatewayError('User not found');
       } else if (user.balance < amount) {
-        error = new Error('Amount exceeds users balance.');
+        error = new PaymentGatewayError('Overdraft');
       } else {
         user.balance -= amount;
         response = { newBalance: user.balance }
@@ -27,4 +29,6 @@ class Paymentgateway {
   }
 }
 
-module.exports = Paymentgateway;
+PaymentGateway.PaymentGatewayError = PaymentGatewayError;
+
+module.exports = PaymentGateway;
