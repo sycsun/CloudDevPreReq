@@ -1,6 +1,6 @@
 'use strict';
 
-class PaymentGatewayError extends Error {}
+class PaymentGatewayError extends Error { }
 
 class PaymentGateway {
 

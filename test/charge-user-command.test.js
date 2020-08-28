@@ -25,9 +25,7 @@ describe('Charge user command', () => {
     const amount = 100;
     chargeUserCommand.execute(userId, amount, (err, value) => {
       assert.equal(err, null);
-      assert.deepEqual({
-        newBalance: 2900
-      }, value);
+      assert.deepEqual({ newBalance: 2900 }, value);
       done();
     });
   });

@@ -1,6 +1,6 @@
 'use strict';
 
-class UserNotFoundError extends Error {}
+class UserNotFoundError extends Error { }
 
 class ChargeUserCommand {
 
