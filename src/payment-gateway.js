@@ -1,6 +1,6 @@
 'use strict';
 
-class PaymentGatewayError extends Error { }
+class OverdraftError extends Error { }
 
 class PaymentGateway {
 
@@ -8,17 +8,14 @@ class PaymentGateway {
     this.users = users;
   }
 
-  charge(userId, amount, callback) {
+  charge(id, amount, callback) {
     setTimeout(() => {
-      const userIndex = this.users.findIndex((user) => user.id === userId);
-      const user = this.users[userIndex];
+      const user = this.users[id];
       let error = null;
       let response = null;
 
-      if (!user) {
-        error = new PaymentGatewayError('User not found');
-      } else if (user.balance < amount) {
-        error = new PaymentGatewayError('Overdraft');
+      if (user.balance < amount) {
+        error = new OverdraftError();
       } else {
         user.balance -= amount;
         response = { newBalance: user.balance }
@@ -29,6 +26,6 @@ class PaymentGateway {
   }
 }
 
-PaymentGateway.PaymentGatewayError = PaymentGatewayError;
+PaymentGateway.OverdraftError = OverdraftError;
 
 module.exports = PaymentGateway;
