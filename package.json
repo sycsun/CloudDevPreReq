@@ -3,11 +3,9 @@
   "version": "1.0.0",
   "description": "This repository contains the code / starting points that match the topics in the [material repository](https://github.tools.sap/cloud-curriculum/material).",
   "scripts": {
-    "watch": "nodemon src/main.js",
-    "start": "node src/main.js",
     "test": "node node_modules/mocha/bin/mocha --exit",
-    "generate-files": "node src/generate-files.js",
-    "file-server": "node src/file-server.js"
+    "warmup-server": "node warmup/server.js",
+    "warmup-tests": "node node_modules/mocha/bin/mocha warmup/server.test.js --exit"
   },
   "repository": {
     "type": "git",

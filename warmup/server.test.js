@@ -1,15 +1,14 @@
 'use strict';
 const supertest = require('supertest');
-const app = require('../src/server');
 
 describe('Server', function () {
 
   it('does not block', function (done) {
-    const client = supertest(app);
+    const client = supertest('http://localhost:3000');
 
     //Send a request that should take a while to respond.
     //We don't care if or when it finishes!
-    client.post('/long-running-operation').expect(200).then(() => { });
+    client.post('/long-running-operation').then(() => { });
 
     //Wait a bit to make sure the long running operation starts processing.
     //Then send a request that should be responded fast.
