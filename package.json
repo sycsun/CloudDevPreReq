@@ -6,7 +6,8 @@
     "watch": "nodemon src/main.js",
     "start": "node src/main.js",
     "test": "node node_modules/mocha/bin/mocha --exit",
-    "read-file": "node src/file-reader.js"
+    "generate-files": "node src/generate-files.js",
+    "file-server": "node src/file-server.js"
   },
   "repository": {
     "type": "git",
@@ -18,6 +19,7 @@
     "supertest": "^4.0.2"
   },
   "dependencies": {
+    "express": "^4.17.1",
     "pg": "^8.3.0"
   }
 }

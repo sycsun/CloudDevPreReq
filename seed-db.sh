@@ -1,1 +1,0 @@
-docker exec js-async-db //usr/local/bin/psql -U postgres -c "CREATE TABLE IF NOT EXISTS mapping(id VARCHAR PRIMARY KEY, gateway_id VARCHAR); INSERT INTO mapping (id, gateway_id) VALUES('johndoe', 'doe_john'), ('janeroe', 'roe_jane');"

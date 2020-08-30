@@ -1,3 +1,5 @@
+'use strict';
+
 const assert = require('assert');
 const PaymentGateway = require('../src/payment-gateway');
 const Pool = require('pg').Pool;
@@ -12,7 +14,10 @@ describe('Charge user command', () => {
     pool = new Pool({ connectionString: 'postgres://postgres@localhost:5432/postgres' });
     paymentGateway = new PaymentGateway({ 'doe_john': { balance: 100 } });
     chargeUserCommand = new ChargeUserCommand(paymentGateway, pool);
+    return pool.query(`INSERT INTO "mapping" ("id", "gateway_id") VALUES('johndoe', 'doe_john'), ('janeroe', 'roe_jane')`);
   });
+
+  after(() => pool.query('DELETE FROM "mapping"'));
 
   after(() => pool.end());
 
