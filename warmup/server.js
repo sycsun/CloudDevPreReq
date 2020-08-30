@@ -6,12 +6,12 @@ const app = express();
 const content = 'Pointless'.repeat(100000000);
 
 app.post('/long-running-operation', (req, res) => {
-    fs.writeFileSync('large-file.txt', content)
-    res.send('done');
+  fs.writeFileSync('large-file.txt', content)
+  res.send('done');
 });
 
 app.get('/greeting', (req, res) => {
-    res.send('Howdy');
+  res.send('Howdy');
 });
 
 app.listen(3000);
