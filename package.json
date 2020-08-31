@@ -4,7 +4,7 @@
   "description": "This repository contains the code / starting points that match the topics in the [material repository](https://github.tools.sap/cloud-curriculum/material).",
   "scripts": {
     "test": "node node_modules/mocha/bin/mocha --exit",
-    "warmup-server": "node warmup/server.js",
+    "warmup-server": "nodemon warmup/server.js",
     "warmup-tests": "node node_modules/mocha/bin/mocha warmup/server.test.js --exit"
   },
   "repository": {
