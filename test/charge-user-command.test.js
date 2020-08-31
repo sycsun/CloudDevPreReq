@@ -10,14 +10,17 @@ describe('Charge user command', () => {
   let paymentGateway;
   let pool;
 
-  before(() => {
+  before((done) => {
     pool = new Pool({ connectionString: 'postgres://postgres@localhost:5432/postgres' });
+    pool.query('DELETE FROM "mapping"', () => {
+      pool.query(`INSERT INTO "mapping" ("id", "gateway_id") 
+                  VALUES('johndoe', 'doe_john'), ('janeroe', 'roe_jane')`, () => {
+        done();
+      });
+    });
     paymentGateway = new PaymentGateway({ 'doe_john': { balance: 100 } });
     chargeUserCommand = new ChargeUserCommand(paymentGateway, pool);
-    return pool.query(`INSERT INTO "mapping" ("id", "gateway_id") VALUES('johndoe', 'doe_john'), ('janeroe', 'roe_jane')`);
   });
-
-  after(() => pool.query('DELETE FROM "mapping"'));
 
   after(() => pool.end());
 
