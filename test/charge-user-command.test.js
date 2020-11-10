@@ -26,15 +26,15 @@ describe('Charge user command', () => {
 
   it('can charge an amount', (done) => {
     chargeUserCommand.execute('johndoe', 100, (err, value) => {
-      assert.equal(err, null);
-      assert.deepEqual({ newBalance: 0 }, value);
+      assert.strictEqual(err, null);
+      assert.deepStrictEqual({ newBalance: 0 }, value);
       done();
     });
   });
 
   it('fails if user was not found in database', (done) => {
     chargeUserCommand.execute('alcapone', 100, (err, value) => {
-      assert.equal(true, err instanceof ChargeUserCommand.UserNotFoundError);
+      assert.strictEqual(true, err instanceof ChargeUserCommand.UserNotFoundError);
       assert.ok(!value);
       done();
     });
@@ -42,7 +42,7 @@ describe('Charge user command', () => {
 
   it('propagates payment gateway errors', (done) => {
     chargeUserCommand.execute('johndoe', 101, (err, value) => {
-      assert.equal(true, err instanceof PaymentGateway.OverdraftError);
+      assert.strictEqual(true, err instanceof PaymentGateway.OverdraftError);
       assert.ok(!value);
       done();
     });

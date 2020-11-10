@@ -15,8 +15,8 @@ describe('Payment Gateway', () => {
 
   it('can charge an amount', (done) => {
     paymentGateway.charge('doe_john', 100, (err, value) => {
-      assert.equal(err, null);
-      assert.deepEqual({ newBalance: 0 }, value);
+      assert.strictEqual(err, null);
+      assert.deepStrictEqual({ newBalance: 0 }, value);
       done();
     });
   });
@@ -24,7 +24,7 @@ describe('Payment Gateway', () => {
   it('fails if users does not have sufficient money ', (done) => {
     paymentGateway.charge('roe_jane', 201, (err, value) => {
       assert.ok(!value);
-      assert.equal(true, err instanceof PaymentGateway.OverdraftError);
+      assert.strictEqual(true, err instanceof PaymentGateway.OverdraftError);
       done();
     });
   });
