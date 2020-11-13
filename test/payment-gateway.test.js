@@ -24,7 +24,7 @@ describe('Payment Gateway', () => {
   it('fails if users does not have sufficient money ', (done) => {
     paymentGateway.charge('roe_jane', 201, (err, value) => {
       assert.ok(!value);
-      assert.strictEqual(true, err instanceof PaymentGateway.OverdraftError);
+      assert.strictEqual(err instanceof PaymentGateway.OverdraftError, true);
       done();
     });
   });
