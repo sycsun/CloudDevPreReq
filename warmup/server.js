@@ -6,7 +6,7 @@ const app = express();
 const content = 'Pointless'.repeat(50000000);
 
 app.post('/long-running-operation', (req, res) => {
-  fs.writeFileSync('large-file.txt', content)
+  fs.writeFileSync('large-file.txt', content);
   res.send('done');
 });
 
