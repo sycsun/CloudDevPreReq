@@ -1,23 +1,20 @@
 {
   "name": "exercise-code-nodejs",
   "version": "1.0.0",
-  "description": "This repository contains the code / starting points that match the topics in the [material repository](https://github.tools.sap/cloud-curriculum/material).",
+  "description": "Gotta catch 'em all!",
   "scripts": {
-    "test": "node node_modules/mocha/bin/mocha --exit",
-    "warmup-server": "nodemon warmup/server.js",
-    "warmup-tests": "node node_modules/mocha/bin/mocha warmup/server.test.js --exit"
+    "start": "node index.js",
+    "lint": "npx eslint"
   },
   "repository": {
     "type": "git",
     "url": "https://github.tools.sap/cloud-curriculum/exercise-code-nodejs.git"
   },
   "devDependencies": {
-    "mocha": "^8.0.1",
-    "nodemon": "^2.0.4",
-    "supertest": "^4.0.2"
+    "eslint": "^8.4.1"
   },
-  "dependencies": {
-    "express": "^4.17.1",
-    "pg": "^8.3.0"
+  "type": "module",
+  "engines": {
+    "node": ">=16"
   }
 }
