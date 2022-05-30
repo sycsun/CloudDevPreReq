@@ -1,4 +1,4 @@
-export default class Deveoper{
+export class Deveoper{
     name;
     language;
     constructor(name, language) {
